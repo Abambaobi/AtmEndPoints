@@ -21,6 +21,7 @@ public class SpringSecConfig1 {
     @Bean
     public SecurityFilterChain securityFilter(HttpSecurity http) throws Exception {
         http
+                .cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/**").permitAll()

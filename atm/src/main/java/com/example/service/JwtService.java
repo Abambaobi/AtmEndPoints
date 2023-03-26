@@ -21,19 +21,19 @@ import java.util.function.Function;
 public class JwtService {
     //    secrete key so the front end can verify that the jwt is from the right server
 //    secrete key helps the server to verify that the jwt is it is receiving is the exact one he generated and has not been tempered with
-//    public final String secKey = "33743677397A24432646294A404E635266556A576E5A7234753778214125442A472D4B6150645367566B59703273357638792F423F4528482B4D625165546857";
+    public final String secKey = "33743677397A24432646294A404E635266556A576E5A7234753778214125442A472D4B6150645367566B59703273357638792F423F4528482B4D625165546857";
 
-    @SneakyThrows
-    public String randomKey() {
-        SecureRandom secureRandom = new SecureRandom();
-        Base64.Encoder base64Encoder = Base64.getEncoder().withoutPadding();
-        Base64.Decoder base64Decoder = Base64.getUrlDecoder();
-        byte[] keyBytes = new byte[64];
-        secureRandom.nextBytes(keyBytes);
-        return base64Encoder.encodeToString(keyBytes);
-    }
+//    @SneakyThrows
+//    public String randomKey() {
+//        SecureRandom secureRandom = new SecureRandom();
+//        Base64.Encoder base64Encoder = Base64.getEncoder().withoutPadding();
+//        Base64.Decoder base64Decoder = Base64.getUrlDecoder();
+//        byte[] keyBytes = new byte[64];
+//        secureRandom.nextBytes(keyBytes);
+//        return base64Encoder.encodeToString(keyBytes);
+//    }
 
-    public final String secKey = randomKey();
+//    public final String secKey = randomKey();
 
 //    generating the jwt and setting claims and extraClaims
 
