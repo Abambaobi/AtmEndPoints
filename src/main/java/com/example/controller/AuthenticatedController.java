@@ -1,6 +1,5 @@
 package com.example.controller;
 import com.example.model.*;
-import com.example.repository.CardRep;
 import com.example.response.ExpiredJwtResponse;
 import com.example.response.TransactionResponse;
 import com.example.service.AtmUserCardDetails_Service;

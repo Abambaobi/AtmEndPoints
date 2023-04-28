@@ -1,12 +1,12 @@
 package com.example.service;
 import com.example.model.*;
 import com.example.repository.AtmRep;
-import com.example.repository.CardRep;
 import com.example.response.TransactionResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -17,8 +17,6 @@ public class TransactionService {
     @Autowired
     AtmUserCardDetails_Service atmUserCardDetails_service;
 
-//    TransactionResponse transactionResponse;
-
     public ResponseEntity<TransactionResponse> transfer(AtmUser atmUserDetails,
                                                         AtmUserCardDetails atmUserCardDetails,
                                                         TransferDTO transferDTO){
@@ -27,7 +25,8 @@ public class TransactionService {
 
         if(
             atmUserCardDetails.getSixteenDigit().equals(transferDTO.getSixteenDig()) &&
-//            atmUserCardDetails.getCardExpiringDate().equals(transferDTO.getExpDate()) &&
+            atmUserCardDetails.getCardExpiringDate().equals(transferDTO.getExpDate()) &&
+            atmUserCardDetails.getCardExpiringDate().isAfter(LocalDate.now()) &&
             atmUserCardDetails.getCvv().equals(transferDTO.getCvv()) &&
             atmUserCardDetails.getPin() == transferDTO.getPin()
         )
@@ -82,7 +81,8 @@ public class TransactionService {
 
         if(
                 atmUserCardDetails.getSixteenDigit().equals(withdrawDTO.getSixteenDig()) &&
-//                atmUserCardDetails.getCardExpiringDate().equals(withdrawDTO.getExpDate()) &&
+                atmUserCardDetails.getCardExpiringDate().equals(withdrawDTO.getExpDate()) &&
+                atmUserCardDetails.getCardExpiringDate().isAfter(LocalDate.now()) &&
                 atmUserCardDetails.getCvv().equals(withdrawDTO.getCvv()) &&
                 atmUser.getPin() == withdrawDTO.getPin()
 
@@ -109,15 +109,16 @@ public class TransactionService {
 
 
 //    Deposit starts here
+
     public ResponseEntity<TransactionResponse> deposit (AtmUser atmUser,
                                                         AtmUserCardDetails atmUserCardDetails ,
                                                         DepositDTO depositDTO){
-
 //        Check if card details correspond
 
         if(
                 atmUserCardDetails.getSixteenDigit().equals(depositDTO.getSixteenDig()) &&
-//                atmUserCardDetails.getCardExpiringDate().equals(depositDTO.getExpDate()) &&
+                atmUserCardDetails.getCardExpiringDate().equals(depositDTO.getExpDate()) &&
+                atmUserCardDetails.getCardExpiringDate().isAfter(LocalDate.now()) &&
                 atmUserCardDetails.getCvv().equals(depositDTO.getCvv()) &&
                 atmUser.getPin() == depositDTO.getPin()
         )

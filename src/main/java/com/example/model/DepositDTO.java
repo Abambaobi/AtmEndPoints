@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DepositDTO {
+
     private String sixteenDig;
     private LocalDate expDate;
     private String cvv;

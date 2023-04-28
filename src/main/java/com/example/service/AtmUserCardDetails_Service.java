@@ -1,15 +1,8 @@
 package com.example.service;
-
-import com.example.model.AtmUser;
 import com.example.model.AtmUserCardDetails;
-import com.example.model.CardDetails;
 import com.example.repository.AtmRep;
-import com.example.repository.CardRep;
-import com.example.role_bank.Bank;
-import com.example.role_bank.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.*;
 
@@ -42,7 +35,7 @@ public class AtmUserCardDetails_Service {
 
             //            Saving CardDetails
 
-            atmUserCardDetails.setCardExpiringDate((Date) user[13]);
+            atmUserCardDetails.setCardExpiringDate(LocalDate.parse(String.valueOf(user[13])));
             atmUserCardDetails.setAccountnumber((String) user[14]);
             atmUserCardDetails.setCvv((String) user[15]);
             atmUserCardDetails.setSixteenDigit((String) user[16]);
@@ -75,7 +68,7 @@ public class AtmUserCardDetails_Service {
 
             //            Saving CardDetails
 
-            atmUserCardDetails.setCardExpiringDate((Date) user[13]);
+            atmUserCardDetails.setCardExpiringDate(LocalDate.parse(String.valueOf(user[13])));
             atmUserCardDetails.setAccountnumber((String) user[14]);
             atmUserCardDetails.setCvv((String) user[15]);
             atmUserCardDetails.setSixteenDigit((String) user[16]);
