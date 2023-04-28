@@ -5,9 +5,7 @@ import com.example.model.RegistrationDTO;
 import com.example.repository.AtmRep;
 import com.example.response.AuthenticationResponse;
 import com.example.service.RgistrationLoginService;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,10 +22,6 @@ public class GuestController {
 
     @Autowired
     AtmRep atmRep;
-    @Autowired
-    public AuthenticationResponse authenticationResponse;
-
-
 
     @PostMapping(value = "/open_account")
     public ResponseEntity<AuthenticationResponse> register (@Valid @RequestBody RegistrationDTO regDTO){

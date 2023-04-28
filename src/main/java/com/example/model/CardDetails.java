@@ -3,7 +3,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,23 +18,20 @@ public class CardDetails {
     @Transient
     Random random = new Random();
 
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long atmCardDetails;
+    @Id
+    public Long cardid;
 
-//    by default it will create a foreign key column called Atm_User_id in this card details class
-    @OneToOne(cascade = CascadeType.ALL)
-    public AtmUser atmUser;
+    private final String sixteenDigit = generateSixteenDigits();
 
-
-    private final String sixteenDigit = generateSeventeenDigits();
-    private final String accNumber = generateAccountNumber();
+    private final String accountnumber = generateAccountNumber();
 
     private final String cvv = generateCvv();
 
     private final LocalDate CardExpiringDate = LocalDate.now().plusYears(5);
 
-    public String generateSeventeenDigits() {
+
+    public String generateSixteenDigits() {
         Map<Integer, String> map = new HashMap<>();
         for (int i = 0; i < 16; i++) {
             String randomNumber = String.valueOf(random.nextInt (10));
@@ -48,7 +44,7 @@ public class CardDetails {
 
     public String generateAccountNumber() {
         Map<Integer, String> map = new HashMap<>();
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 10; i++) {
             String randomNumber = String.valueOf(random.nextInt (10));
             map.put(i, randomNumber);
         }

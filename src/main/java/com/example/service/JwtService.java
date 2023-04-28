@@ -38,8 +38,6 @@ public class JwtService {
 //    generating the jwt and setting claims and extraClaims
 
     public String generateJwt (AtmUser atmUser, Map<String, Object> extraClaims) {
-//        System.out.println(atmUser.getUsername());
-
         return Jwts.builder()
 //                .setClaims(extraClaims)
                 .addClaims(extraClaims)
@@ -105,7 +103,4 @@ public class JwtService {
                     .compact();
             return(expired_token);
         }
-
-
-
 }

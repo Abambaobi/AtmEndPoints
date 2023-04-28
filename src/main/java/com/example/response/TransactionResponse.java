@@ -15,6 +15,4 @@ public class TransactionResponse {
     String deposit_status;
     String transaction_status;
     String withdraw_status;
-
-
 }

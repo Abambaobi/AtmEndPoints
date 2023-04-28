@@ -1,5 +1,4 @@
 package com.example.controller;
-
 import com.example.model.AtmUser;
 import com.example.repository.AtmRep;
 import jakarta.transaction.Transactional;
@@ -7,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 

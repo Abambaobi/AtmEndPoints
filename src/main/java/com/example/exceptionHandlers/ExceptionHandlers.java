@@ -15,8 +15,8 @@ public class ExceptionHandlers {
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     public ResponseEntity<?> validationException (MethodArgumentNotValidException e){
         Map<String, Object> res = new HashMap<>();
-        res.put("message", "Validation fa");
-        res.put("status", "BAD_REQT");
+        res.put("message", "Validation failed");
+        res.put("status", "BAD_REQUEST");
         List<Object> list = new ArrayList<>();
         e.getFieldErrors().forEach((error)-> {
             Map<String, Object>  map = new HashMap<>();

@@ -1,5 +1,4 @@
 package com.example.model;
-
 import com.example.role_bank.Bank;
 import com.example.role_bank.Role;
 import jakarta.persistence.*;
@@ -22,8 +21,7 @@ public class AtmUser implements UserDetails {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    public long id;
-
+    public Long userid;
     private String username;
 
     private String firstname;
@@ -47,6 +45,9 @@ public class AtmUser implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Bank bank;
 
+    @OneToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "cardid")
+    public CardDetails cardDetails;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
