@@ -59,29 +59,32 @@ public class AuthenticatedController {
 
     @SneakyThrows
     @GetMapping(value = "/home")
-    public ResponseEntity<AtmUser> details(HttpServletRequest request){
+    public ResponseEntity<AtmUserCardDetails> details(HttpServletRequest request){
 
 
         String authorizationHeader = request.getHeader("Authorization");
         String jwt = authorizationHeader.substring(7);
         String username = jwtService.extSubject(jwt);
         Optional<AtmUser> atmUser = atmRep.findByUsername(username);
-        AtmUser loggedInUser = atmUser.get();
 
         if(atmUser.isPresent()  && jwtService.validateJwt(atmUser.get(), jwt)){
-            return new ResponseEntity<>(loggedInUser, HttpStatus.OK);
+            AtmUserCardDetails loggedInUserCard =  atmUserCardDetails_service.findCardDetailsByUsername(username);
+
+            return new ResponseEntity<>(loggedInUserCard, HttpStatus.OK);
         }
-        return new ResponseEntity<>(loggedInUser, HttpStatus.BAD_REQUEST);
+
+        return new ResponseEntity<>(new AtmUserCardDetails(), HttpStatus.BAD_REQUEST);
 
     }
 
+    @CrossOrigin
     @PostMapping(value = "/transfer")
     public ResponseEntity<TransactionResponse> transfer(@Valid @RequestBody TransferDTO transferDTO, HttpServletRequest request){
         String authorizationHeader = request.getHeader("Authorization");
         String jwt = authorizationHeader.substring(7);
         String username = jwtService.extSubject(jwt);
 
-      Optional<AtmUser> atmUserDetails = atmRep.findByUsername(username);
+        Optional<AtmUser> atmUserDetails = atmRep.findByUsername(username);
         AtmUserCardDetails atmUserCardDetails =  atmUserCardDetails_service.findCardDetailsByUsername(username);
 
         if (atmUserDetails.isPresent() && (atmUserDetails.get().getBank() == transferDTO.getBank())) {
@@ -92,12 +95,12 @@ public class AuthenticatedController {
             var transactionResponse = TransactionResponse.builder()
                     .transaction_status("Insufficient account balance")
                     .build();
-            return new ResponseEntity<>(transactionResponse, HttpStatus.BAD_REQUEST) ;
+            return new ResponseEntity<>(transactionResponse, HttpStatus.OK) ;
         }
         var transactionResponse = TransactionResponse.builder()
                 .transaction_status("User does not exist")
                 .build();
-        return new ResponseEntity<>(transactionResponse, HttpStatus.BAD_REQUEST) ;
+        return new ResponseEntity<>(transactionResponse, HttpStatus.OK) ;
 
     }
 
@@ -120,13 +123,13 @@ public class AuthenticatedController {
             var transactionResponse = TransactionResponse.builder()
                     .transaction_status("Insufficient account balance")
                     .build();
-            return new ResponseEntity<>(transactionResponse, HttpStatus.BAD_REQUEST) ;
+            return new ResponseEntity<>(transactionResponse, HttpStatus.OK) ;
 
         }
         var transactionResponse = TransactionResponse.builder()
                 .transaction_status("User does not exist")
                 .build();
-        return new ResponseEntity<>(transactionResponse, HttpStatus.BAD_REQUEST) ;
+        return new ResponseEntity<>(transactionResponse, HttpStatus.OK) ;
 
     }
 
@@ -147,7 +150,7 @@ public class AuthenticatedController {
         var transactionResponse = TransactionResponse.builder()
                 .transaction_status("User does not exist")
                 .build();
-        return new ResponseEntity<>(transactionResponse, HttpStatus.BAD_REQUEST) ;
+        return new ResponseEntity<>(transactionResponse, HttpStatus.OK) ;
 
     }
 

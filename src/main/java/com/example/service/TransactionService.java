@@ -38,7 +38,8 @@ public class TransactionService {
 
             //         if the recipient with the account number exist
         if (atmRecipientUser.isPresent() &&
-                atmRecipientUserCardDetails.getBank().equals(transferDTO.getRecepientBank())
+            atmRecipientUserCardDetails.getBank().equals(transferDTO.getRecepientBank()) &&
+            !(atmUserCardDetails.getAccountnumber().equals("Incorrect"))
         ) {
 
             //            subtract the amount from sender's account
@@ -59,14 +60,14 @@ public class TransactionService {
          var transactionResponse = TransactionResponse.builder()
                  .transaction_status("invalid recipient account number")
                  .build();
-         return new ResponseEntity<>(transactionResponse, HttpStatus.BAD_REQUEST);
+         return new ResponseEntity<>(transactionResponse, HttpStatus.OK);
      }
 //        Else if card details does not correspond
 
         var transactionResponse = TransactionResponse.builder()
                 .transaction_status("Invalid sender's card details")
                 .build();
-        return new ResponseEntity<>(transactionResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(transactionResponse, HttpStatus.OK);
     }
 
 //    Transfer ends here
@@ -103,7 +104,7 @@ public class TransactionService {
         var transactionResponse = TransactionResponse.builder()
                 .transaction_status("Invalid card details")
                 .build();
-        return new ResponseEntity<>(transactionResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(transactionResponse, HttpStatus.OK);
     }
 //    Withdraw ends
 
@@ -137,7 +138,7 @@ public class TransactionService {
         var transactionResponse = TransactionResponse.builder()
                 .transaction_status("Invalid card details")
                 .build();
-        return new ResponseEntity<>(transactionResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(transactionResponse, HttpStatus.OK);
     }
 //    Deposit ends
 }

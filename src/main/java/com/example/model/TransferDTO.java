@@ -32,10 +32,11 @@ public class TransferDTO {
     private String username;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Bank bank;
 
     @Enumerated(EnumType.STRING)
-    private Bank bank;
+    private Role role;
+
 
 
 

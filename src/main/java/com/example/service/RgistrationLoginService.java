@@ -55,7 +55,7 @@ public class RgistrationLoginService {
         CardDetails cardDetails = new CardDetails();
         cardRep.save(cardDetails);
 
-        atmUser.setCardDetails(cardDetails);
+//        atmUser.setCardDetails(cardDetails);
         atmRep.save(atmUser);
 
 

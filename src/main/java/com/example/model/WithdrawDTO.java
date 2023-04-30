@@ -20,7 +20,6 @@ public class WithdrawDTO {
     private String cvv;
     private int pin;
     private Long amount;
-    private String username;
     @Enumerated(EnumType.STRING)
     private Bank bank;
     @Enumerated(EnumType.STRING)

@@ -48,6 +48,12 @@ public class AtmUserCardDetails_Service {
     public AtmUserCardDetails findAtmUserByAccountnumber(String accountnumber){
         List<Object[]> allDetails = atmRep.findByAccountnumber (accountnumber);
 
+        if(allDetails.isEmpty()){
+            AtmUserCardDetails atmUserCardDetails = new AtmUserCardDetails();
+            atmUserCardDetails.setAccountnumber("Incorrect");
+            return atmUserCardDetails;
+        }
+
         Map<String, AtmUserCardDetails> map = new HashMap<>();
 
         for(Object[] user : allDetails){
