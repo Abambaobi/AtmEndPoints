@@ -7,7 +7,6 @@ import com.example.model.LoginDTO;
 import com.example.model.RegistrationDTO;
 import com.example.repository.AtmRep;
 import com.example.repository.CardRep;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -43,6 +41,7 @@ public class RgistrationLoginService {
         AtmUser atmUser = regDTO.getAccessUser();
         Optional<AtmUser> dbUser = atmRep.findByUsername(atmUser.getUsername());
 
+
         if(dbUser.isPresent()){
             var authenticationResponse = AuthenticationResponse.builder()
                     .Registeration_Status("User Already Exist")
@@ -53,10 +52,12 @@ public class RgistrationLoginService {
             return new ResponseEntity<AuthenticationResponse>(authenticationResponse, HttpStatus.BAD_REQUEST);
         }
         atmUser.setPassword(passwordEncoder.encode(atmUser.getPassword()));
-
-        atmRep.save(atmUser);
         CardDetails cardDetails = new CardDetails();
         cardRep.save(cardDetails);
+
+//        atmUser.setCardDetails(cardDetails);
+        atmRep.save(atmUser);
+
 
         var authenticationResponse = AuthenticationResponse.builder()
                 .Registeration_Status("Registered Successfully")
@@ -69,7 +70,6 @@ public class RgistrationLoginService {
 
 
     public  ResponseEntity<AuthenticationResponse> loginAtmUser(LoginDTO loginDTO, AtmUser atmUser){
-
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                     loginDTO.getUsername(),
                     loginDTO.getPassword(),
