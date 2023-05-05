@@ -1,17 +1,17 @@
-FROM maven:3.8-jdk-11-slim AS build
-
-COPY . /app
+FROM openjdk:17-jdk-slim AS build
 
 WORKDIR /app
 
-RUN mvn clean package -DskipTests
+COPY . .
 
-FROM adoptopenjdk/openjdk11:alpine-jre
+RUN ./mvnw package
 
-COPY --from=build /app/target/Atm.jar /app.jar
+FROM openjdk:17-jdk-slim
+
+COPY --from=build /app/target/AtmEndPoints.jar app.jar
 
 EXPOSE 8080
 
 ENV SPRING_PROFILES_ACTIVE=production
 
-CMD ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
