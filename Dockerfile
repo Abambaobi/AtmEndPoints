@@ -4,6 +4,8 @@ WORKDIR /app
 
 COPY . .
 
+RUN chmod +x mvnw
+
 RUN ./mvnw package
 
 FROM openjdk:17-jdk-slim
