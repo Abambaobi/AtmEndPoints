@@ -1,18 +1,22 @@
-FROM openjdk:17-jdk-slim AS build
+FROM ubuntu:latest AS build
 
-WORKDIR /app
+RUN apt-get update
+
+RUN apt-get install openjdk-17-jdk -y
 
 COPY . .
 
-RUN chmod +x mvnw
+# RUN chmod +x mvnw
 
-RUN ./mvnw package
+RUN ./mvnw spring-boot:run
 
-FROM openjdk:17-jdk-slim
-
-COPY --from=build /app/target/AtmEndPoints.jar app.jar
+FROM openjdk:17-jre-slim
 
 EXPOSE 8080
+
+COPY --from=build /build/libs/AtmEndPoints.jar AtmApplication.jar
+
+
 
 ENV SPRING_PROFILES_ACTIVE=production
 
