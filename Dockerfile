@@ -13,8 +13,8 @@ RUN ./mvnw spring-boot:run
 FROM adoptopenjdk/openjdk11:alpine-jre
 
 # Copy the JAR file from the build stage into the new container
-# COPY --from=build /app/target/AtmEndPoints.jar AtmApplication.jar
-COPY --from=build /build/libs/AtmEndPoints.jar AtmApplication.jar
+COPY --from=build /app/target/AtmEndPoints.jar AtmApplication.jar
+# COPY --from=build /build/libs/AtmEndPoints.jar AtmApplication.jar
 
 # Expose the port that the application will listen on
 EXPOSE 8080
