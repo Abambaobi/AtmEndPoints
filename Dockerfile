@@ -1,5 +1,5 @@
 # Use a base image with Java and Maven pre-installed
-FROM openjdk:17-jdk-slim AS build
+FROM openjdk:17-jdk-alpine
 
 VOLUME /tmp
 
