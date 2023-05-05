@@ -10,7 +10,7 @@ COPY . .
 
 RUN ./mvnw spring-boot:run
 
-FROM openjdk:17-jre-slim
+FROM openjdk:17-jdk-slim
 
 EXPOSE 8080
 
