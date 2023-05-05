@@ -1,5 +1,5 @@
 # Use a base image with Java and Maven pre-installed
-FROM maven:3.0.2-jdk-17-slim AS build
+FROM openjdk-17 AS build
 
 # Copy the source code into the container
 COPY . .
