@@ -7,7 +7,7 @@ FROM openjdk:17-jdk-slim AS build
 COPY . .
 
 # Build the application using Maven
-RUN mvn clean package -DskipTests
+RUN ./mvnw spring-boot:run
 
 # Use a lightweight base image for running the application
 FROM adoptopenjdk/openjdk11:alpine-jre
