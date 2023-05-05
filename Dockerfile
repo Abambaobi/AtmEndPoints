@@ -1,26 +1,13 @@
-
-
 # Use a base image with Java and Maven pre-installed
 FROM openjdk:17-jdk-slim AS build
 
+VOLUME /tmp
+
 # Copy the source code into the container
-COPY . .
+COPY target/*.jar app.jar
 
-# Build the application using Maven
-RUN ./mvnw spring-boot:run
-
-# Use a lightweight base image for running the application
-FROM adoptopenjdk/openjdk11:alpine-jre
-
-# Copy the JAR file from the build stage into the new container
-COPY --from=build /app/target/AtmEndPoints.jar AtmApplication.jar
-# COPY --from=build /build/libs/AtmEndPoints.jar AtmApplication.jar
+# Run the application when the container starts
+ENTRYPOINT ["java", "-jar", "/app.jar"]
 
 # Expose the port that the application will listen on
 EXPOSE 8080
-
-# Set an environment variable to customize the application's behavior
-ENV SPRING_PROFILES_ACTIVE=production
-
-# Run the application when the container starts
-ENTRYPOINT ["java", "-jar", "app.jar"]
