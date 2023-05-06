@@ -1,4 +1,5 @@
 FROM openjdk:17-alpine
 WORKDIR /app
-COPY target/*.class /app/
-CMD ["java", "AtmApplication"]
+COPY target/ /app/
+CMD ["java", "-cp", "/app", "com.example.AtmApplication"]
+
