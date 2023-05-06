@@ -28,7 +28,7 @@ public class TransactionService {
             atmUserCardDetails.getCardExpiringDate().equals(transferDTO.getExpDate()) &&
             atmUserCardDetails.getCardExpiringDate().isAfter(LocalDate.now()) &&
             atmUserCardDetails.getCvv().equals(transferDTO.getCvv()) &&
-            atmUserCardDetails.getPin() == transferDTO.getPin()
+            atmUserCardDetails.getPin() == Integer.valueOf(transferDTO.getPin())
         )
      {
         //         Get the recipient details
@@ -43,12 +43,12 @@ public class TransactionService {
         ) {
 
             //            subtract the amount from sender's account
-            atmUserDetails.setAccountBal( atmUserDetails.getAccountBal() - transferDTO.getAmount() );
+            atmUserDetails.setAccountBal( atmUserDetails.getAccountBal() - Long.valueOf(transferDTO.getAmount()) );
             atmRep.save(atmUserDetails);
 
             //            save the new account balance to recipient account
             AtmUser atmRecipientUser1 = atmRecipientUser.get();
-            atmRecipientUser1.setAccountBal( atmRecipientUser1.getAccountBal() + transferDTO.getAmount() );
+            atmRecipientUser1.setAccountBal( atmRecipientUser1.getAccountBal() + Long.valueOf(transferDTO.getAmount()) );
             atmRep.save(atmRecipientUser1);
                  var transactionResponse = TransactionResponse.builder()
                 .transaction_status("Transfer Successful")
@@ -85,12 +85,12 @@ public class TransactionService {
                 atmUserCardDetails.getCardExpiringDate().equals(withdrawDTO.getExpDate()) &&
                 atmUserCardDetails.getCardExpiringDate().isAfter(LocalDate.now()) &&
                 atmUserCardDetails.getCvv().equals(withdrawDTO.getCvv()) &&
-                atmUser.getPin() == withdrawDTO.getPin()
+                atmUser.getPin() == Integer.valueOf(withdrawDTO.getPin())
 
         )
         {
 //            save the new account balance
-            atmUser.setAccountBal( atmUser.getAccountBal() - withdrawDTO.getAmount() );
+            atmUser.setAccountBal( atmUser.getAccountBal() - Long.valueOf(withdrawDTO.getAmount()) );
             atmRep.save(atmUser);
 
         var transactionResponse = TransactionResponse.builder()
@@ -121,11 +121,11 @@ public class TransactionService {
                 atmUserCardDetails.getCardExpiringDate().equals(depositDTO.getExpDate()) &&
                 atmUserCardDetails.getCardExpiringDate().isAfter(LocalDate.now()) &&
                 atmUserCardDetails.getCvv().equals(depositDTO.getCvv()) &&
-                atmUser.getPin() == depositDTO.getPin()
+                atmUser.getPin() == Integer.valueOf(depositDTO.getPin())
         )
         {
             //            save the new account balance
-            atmUser.setAccountBal( atmUser.getAccountBal() + depositDTO.getAmount() );
+            atmUser.setAccountBal( atmUser.getAccountBal() + Long.valueOf(depositDTO.getAmount()) );
             atmRep.save(atmUser);
             var transactionResponse = TransactionResponse.builder()
 

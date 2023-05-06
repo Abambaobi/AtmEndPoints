@@ -89,7 +89,7 @@ public class AuthenticatedController {
 
         if (atmUserDetails.isPresent() && (atmUserDetails.get().getBank() == transferDTO.getBank())) {
 
-                if(transferDTO.getAmount() <= atmUserDetails.get().getAccountBal()){
+                if(Long.valueOf(transferDTO.getAmount()) <= atmUserDetails.get().getAccountBal()){
                     return transactionService.transfer(atmUserDetails.get(), atmUserCardDetails, transferDTO);
              }
             var transactionResponse = TransactionResponse.builder()
@@ -116,7 +116,7 @@ public class AuthenticatedController {
             AtmUser atmUser = atmUser1.get();
             AtmUserCardDetails atmUserCardDetails =  atmUserCardDetails_service.findCardDetailsByUsername(username);
 
-            if(withdrawDTO.getAmount() <= atmUser.getAccountBal()){
+            if(Long.valueOf(withdrawDTO.getAmount()) <= atmUser.getAccountBal()){
                 return transactionService.withdraw(atmUser, atmUserCardDetails, withdrawDTO);
 
             }
