@@ -1,2 +1,4 @@
 path/to/atm-0.0.1-SNAPSHOT.jar filter=lfs diff=lfs merge=lfs -text
 /target/atm-0.0.1-SNAPSHOT.jar filter=lfs diff=lfs merge=lfs -text
+target/atm-0.0.1-SNAPSHOT.jar filter=lfs diff=lfs merge=lfs -text
+atm-0.0.1-SNAPSHOT.jar filter=lfs diff=lfs merge=lfs -text
