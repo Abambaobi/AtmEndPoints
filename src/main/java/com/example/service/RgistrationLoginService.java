@@ -55,7 +55,7 @@ public class RgistrationLoginService {
         CardDetails cardDetails = new CardDetails();
         cardRep.save(cardDetails);
 
-//        atmUser.setCardDetails(cardDetails);
+        atmUser.setCardDetails(cardDetails);
         atmRep.save(atmUser);
 
 
@@ -76,7 +76,7 @@ public class RgistrationLoginService {
                     atmUser.getAuthorities()
             );
             authenticationManager.authenticate(token);
-            SecurityContextHolder.getContext().setAuthentication(token);;
+            SecurityContextHolder.getContext().setAuthentication(token);
             Map<String,Object> extraClaims = new HashMap<>();
             extraClaims.put("firstname", atmUser.getFirstname());
             extraClaims.put("lastname", atmUser.getLastname());

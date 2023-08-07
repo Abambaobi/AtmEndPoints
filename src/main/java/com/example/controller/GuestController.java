@@ -40,7 +40,7 @@ public class GuestController {
             }
 
         var authenticationResponse = AuthenticationResponse.builder()
-                .Login_Status("User does not exist-")
+                .Login_Status("User does not exist")
                 .build();
         return new ResponseEntity<>(authenticationResponse, HttpStatus.BAD_REQUEST);
         }

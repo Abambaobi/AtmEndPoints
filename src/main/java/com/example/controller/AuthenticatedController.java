@@ -67,9 +67,9 @@ public class AuthenticatedController {
         String username = jwtService.extSubject(jwt);
         Optional<AtmUser> atmUser = atmRep.findByUsername(username);
 
+
         if(atmUser.isPresent()  && jwtService.validateJwt(atmUser.get(), jwt)){
             AtmUserCardDetails loggedInUserCard =  atmUserCardDetails_service.findCardDetailsByUsername(username);
-
             return new ResponseEntity<>(loggedInUserCard, HttpStatus.OK);
         }
 
